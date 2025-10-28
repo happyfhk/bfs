@@ -4,7 +4,7 @@ from collections import deque
 import time
 import sys
 import random
-import heapq  # A* 알고리즘을 위한 우선순위 큐 임포트
+import heapq 
 
 pygame.init()
 
@@ -381,13 +381,10 @@ def main():
     while True: 
         num = input_size()
         
-        # (수정) cell_size는 정수 나눗셈 (N=250 -> 2)
         cell_size = width // num 
         
-        # (수정) maze_pixel_size는 num * cell_size (250 * 2 = 500)
         maze_pixel_size = num * cell_size
         
-        # (수정) 미로 Surface를 실제 픽셀 크기(500x500)로 생성
         maze_surface = pygame.Surface((maze_pixel_size, maze_pixel_size))
         
         maze = generate_maze(num)
@@ -413,16 +410,13 @@ def main():
         while selecting:
             screen.fill(WHITE)
             
-            # (수정) 1. 원본 maze_surface(500x500)에 미로 그리기
             if num > 150: 
                 draw_maze_fast(maze_surface, maze, num, cell_size) 
             else:
                 draw_maze(maze_surface, maze, num, cell_size)
             
-            # (수정) 2. 원본 maze_surface를 (700, 700)으로 스케일링
             pygame.transform.scale(maze_surface, (width, height), scaled_surface)
             
-            # (수정) 3. 스케일링된 Surface를 화면 (0,0)에 blit
             screen.blit(scaled_surface, (0, 0))
             
             # --- UI 요소들은 screen에 직접 그림 (기존과 동일) ---
@@ -477,10 +471,8 @@ def main():
                                 break 
             
             if chosen_algo:
-                # (수정) 원본 maze_surface(500x500)를 전달
                 run_algorithm(maze_surface, maze, num, cell_size, chosen_algo, results)
 
 
 if __name__ == '__main__':
     main()
-
